@@ -3,6 +3,10 @@
 ```
 git clone https://github.com/Mantodkaz/pop-monitor
 cd pop-monitor
+
+python3 -m venv venv
+source venv/bin/activate
+
 pip3 install -r requirements.txt
 python3 monitor.py
 ```
