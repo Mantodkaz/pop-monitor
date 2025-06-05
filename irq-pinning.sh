@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "[*] Auto IRQ pinning for network devices..."
+
 total_cores=$(nproc)
 core_index=0
 
@@ -22,11 +24,13 @@ for irq in $(ls /proc/irq | grep -E '^[0-9]+$'); do
 
         echo "[*] IRQ $irq ($irq_desc) -> core $core (mask 0x$hexmask)"
         if echo "$hexmask" > "$affinity_file" 2>/dev/null; then
-            echo "Success"
+            echo "    [+] Success"
         else
-            echo "Failed (permission or locked by hypervisor)"
+            echo "    [-] Failed (permission or locked by hypervisor)"
         fi
 
         ((core_index++))
     fi
 done
+
+echo "[*] IRQ pinning completed."
